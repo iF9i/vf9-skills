@@ -1,0 +1,55 @@
+/* ==========================================================
+   VF9 · نظام الحركة الموحّد
+   خمس حركات بأسلوب واجهات أبل، بدون مكتبات:
+     hero-reveal   ظهور العناوين: صعود + وضوح تدريجي
+     slide         انزلاق من الجانب (قوائم وبطاقات طويلة)
+     pop-in        ظهور منبثق بنبضة خفيفة (بطاقات وأرقام)
+     bounce-rotate دخول الشعار: صعود وتكبير وتوضيح، بدون دوران (الاسم قديم، الحركة نظيفة)
+     bump          ضغطة الأزرار (تفاعل، لا دخول)
+
+   الاستعمال:  <h1 class="reveal" data-motion="hero-reveal">
+   التأخير بين الإخوة يضبطه motion.js تلقائيًا عبر --d
+   لتغيير الإحساس في كل المشاريع عدّل المتغيّرات التالية فقط.
+   ========================================================== */
+
+:root {
+  --ease-out: cubic-bezier(.16, 1, .3, 1);      /* هبوط ناعم */
+  --ease-spring: cubic-bezier(.34, 1.56, .64, 1); /* ارتداد خفيف */
+  --mo-dur: .9s;
+  --mo-step: 90ms;                               /* الفرق بين عنصر وجاره */
+}
+
+/* قبل الظهور: مخفي. بعد دخول الشاشة تُضاف .in وتشتغل الحركة */
+.reveal[data-motion] { opacity: 0; transform: none; transition: none; }
+.reveal[data-motion].in { opacity: 1; animation-duration: var(--mo-dur); animation-delay: var(--d, 0s); animation-timing-function: var(--ease-out); animation-fill-mode: backwards; }
+
+.reveal[data-motion="hero-reveal"].in { animation-name: mo-hero; animation-duration: 1.15s; }
+.reveal[data-motion="slide"].in { animation-name: mo-slide; }
+.reveal[data-motion="pop-in"].in { animation-name: mo-pop; animation-timing-function: var(--ease-spring); animation-duration: .8s; }
+.reveal[data-motion="bounce-rotate"].in { animation-name: mo-bounce; animation-timing-function: var(--ease-out); animation-duration: 1.3s; }
+
+@keyframes mo-hero {
+  from { opacity: 0; transform: translateY(34px) scale(.985); filter: blur(10px); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+@keyframes mo-slide {
+  from { opacity: 0; transform: translateX(44px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes mo-pop {
+  from { opacity: 0; transform: translateY(14px) scale(.9); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes mo-bounce {
+  /* دخول نظيف: يطلع قليلًا ويكبر ويتضح، بدون دوران */
+  from { opacity: 0; transform: translateY(26px) scale(.9); filter: blur(10px); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+
+/* bump: ضغطة ملموسة بدل التغيّر الجامد */
+.btn, .pill { transition-timing-function: var(--ease-spring); }
+.btn:active, .pill:active { transform: scale(.95) !important; transition-duration: .12s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal[data-motion] { opacity: 1; animation: none !important; filter: none; }
+}

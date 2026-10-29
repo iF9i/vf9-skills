@@ -1,0 +1,7 @@
+{
+  "name": "vf9-motion",
+  "version": "1.0.0",
+  "description": "VF9 Apple-style UI motion system: hero-reveal, slide, pop-in, bounce-rotate, bump. Plain CSS + tiny JS, RTL-ready.",
+  "author": { "name": "VF9", "url": "https://vf9.dev" },
+  "homepage": "https://vf9.dev"
+}

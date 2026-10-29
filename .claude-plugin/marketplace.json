@@ -1,0 +1,11 @@
+{
+  "name": "vf9-skills",
+  "owner": { "name": "VF9", "url": "https://vf9.dev" },
+  "plugins": [
+    {
+      "name": "vf9-motion",
+      "source": "./plugins/vf9-motion",
+      "description": "VF9 Apple-style UI motion system: five presets as plain CSS + tiny JS. RTL-ready, respects prefers-reduced-motion."
+    }
+  ]
+}
